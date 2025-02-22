@@ -38,19 +38,20 @@ class GenerateFaviconsCommand extends Command
         }
 
         // GD driver doesn't support .ico, that's why we use ImageMagick.
-        $manager = new ImageManager(['driver' => 'imagick']);
+        $manager = new ImageManager(\Intervention\Image\Drivers\Gd\Driver::class);
 
         $this->comment('Generating ico...');
 
+        //make改成read
         $manager
-            ->make($path)
+            ->read($path)
             ->resize(32, 32)
             ->save(public_path('favicon.ico'));
 
         $this->comment('Generating png...');
 
         $manager
-            ->make($path)
+            ->read($path)
             ->resize(32, 32)
             ->save(public_path('favicon.png'));
 
